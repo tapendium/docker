@@ -1,4 +1,4 @@
 steps:
-  - label: "Init pr pipeline"
+  - label: "Init merge pipeline"
     commands:
       - echo 'Hello World'
