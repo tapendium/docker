@@ -1,9 +1,11 @@
 steps:
-  - label: "Lint Dockerfiles"
+  - label: "Triggering lint pipelines"
     plugins:
       - chronotc/monorepo-diff:
           watch:
-            - path: cfn-lint
+            - path: cfnlint
               config:
-                label: ':pipeline: Upload lint pipeline for cfn-lint container'
+                label: ':pipeline: Upload lint pipeline for cfnlint container'
                 command: echo "Changes detected!"
+                env:
+                  - MODULE=cfnlint
