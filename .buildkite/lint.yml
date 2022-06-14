@@ -5,4 +5,4 @@ steps:
           image: hadolint/hadolint
           propagate-environment: true
           command: 
-            - < "./$CONTAINER_NAME/Dockerfile"
+            - "./$CONTAINER_NAME/Dockerfile"
