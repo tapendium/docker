@@ -6,7 +6,7 @@ steps:
             - path: cfnlint
               config:
                 label: ":pipeline: Upload lint pipeline for cfnlint container"
-                commands: 
+                command: 
                   - buildkite-agent pipeline upload .buildkite/lint.yml
                 env:
                   - CONTAINER_NAME=cfnlint
