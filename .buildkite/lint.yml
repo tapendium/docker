@@ -1,0 +1,5 @@
+steps:
+  - label: "Init lint pipeline"
+    commands:
+      - echo 'Hello World'
+      - echo $CONTAINER_NAME
