@@ -4,6 +4,4 @@ steps:
       - docker#v3.13.0:
           image: hadolint/hadolint
           propagate-environment: true
-          command:
-            - echo $CONTAINER_NAME
-            - hadolint "./$CONTAINER_NAME/Dockerfile"
+          command: hadolint "./$CONTAINER_NAME/Dockerfile"
