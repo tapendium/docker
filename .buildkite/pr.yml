@@ -1,4 +1,9 @@
 steps:
-  - label: "Init pr pipeline"
-    commands:
-      - echo 'Hello World'
+  - label: "Lint Dockerfiles"
+    plugins:
+      - chronotc/monorepo-diff:
+          watch:
+            - path: cfn-lint
+              config:
+                label: ':pipeline: Upload lint pipeline for cfn-lint container'
+                command: echo "Changes detected!"
