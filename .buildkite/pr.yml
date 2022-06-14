@@ -2,7 +2,6 @@ steps:
   - label: "Triggering lint pipelines"
     plugins:
       - chronotc/monorepo-diff:
-          diff: "git diff --name-only $(head -n 1 last_successful_build)"
           watch:
             - path: cfnlint
               config:
