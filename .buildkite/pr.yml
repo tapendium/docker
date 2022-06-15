@@ -1,4 +1,11 @@
 steps:
-  - label: "Init pr pipeline"
-    commands:
-      - echo 'Hello World'
+  - label: "Triggering lint pipelines"
+    plugins:
+      - chronotc/monorepo-diff:
+          watch:
+            - path: cfnlint
+              config:
+                label: ":pipeline: Upload lint pipeline for cfnlint container"
+                command: buildkite-agent pipeline upload .buildkite/lint.yml
+                env:
+                  - CONTAINER_NAME=cfnlint
