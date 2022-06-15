@@ -1,5 +1,2 @@
 FROM python:alpine
 
-# testing
-
-
