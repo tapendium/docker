@@ -1,5 +1,9 @@
 steps:
-  - label: "Init lint pipeline"
-    commands:
-      - echo 'Hello World'
-      - echo $CONTAINER_NAME
+  - label: "lint Dockerfile pipeline"
+    plugins:
+      - docker#v3.13.0:
+          image: hadolint/hadolint
+          propagate-environment: true
+          command: 
+            - hadolint
+            - "./${CONTAINER_NAME}/Dockerfile"
