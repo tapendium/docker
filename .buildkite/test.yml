@@ -1,8 +1,12 @@
 steps:
   - label: "Dockerfile unit-test pipeline"
     command:
-      - "docker build -t cfnlint -f ./${CONTAINER_NAME}/Dockerfile ."
-      - "docker-compose -f ./${CONTAINER_NAME}/docker-compose.yml run lint"
+      - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
+      - >-
+        "docker run --rm -i -v $(pwd):/workdir --workdir /workdir 
+        gcr.io/gcp-runtimes/container-structure-test:latest 
+        test --image ${CONTAINER_NAME} 
+        --config /workdir/${CONTAINER_NAME}/unit-test.yml"
     plugins:
       - docker#v3.13.0:
           image: docker:latest

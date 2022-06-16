@@ -1,7 +1,7 @@
 schemaVersion: "2.0.0"
 fileExistenceTests:
   - name: "Check output.yml exists"
-    path: "./output.yaml"
+    path: "./output.yml"
     shouldExist: true
     uid: 1000
     gid: 1000
