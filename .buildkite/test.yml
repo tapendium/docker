@@ -6,4 +6,4 @@ steps:
     plugins:
       - docker#v3.13.0:
           image: docker:latest
-            propagate-environment: true
+          propagate-environment: true
