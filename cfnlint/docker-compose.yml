@@ -1,0 +1,11 @@
+services:
+  lint:
+    image: gcr.io/gcp-runtimes/container-structure-test:latest
+    volumes:
+      - ".:/usr/src/project:ro"
+    command:
+      - test
+      - --image
+      - cfnlint
+      - --config
+      - /usr/src/project/cfnlint/unit-test.yml
