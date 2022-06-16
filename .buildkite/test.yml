@@ -1,0 +1,9 @@
+steps:
+  - label: "Dockerfile unit-test pipeline"
+    command:
+      - "docker build -t cfnlint -f ./${CONTAINER_NAME}/Dockerfile ."
+      - "docker-compose -f ./${CONTAINER_NAME}/docker-compose.yml run lint"
+    plugins:
+      - docker#v3.13.0:
+        image: docker:latest
+          propagate-environment: true
