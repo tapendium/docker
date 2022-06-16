@@ -1,5 +1,5 @@
 steps:
-  - label: "Triggering lint pipelines"
+  - label: "Triggering tests pipelines"
     plugins:
       - chronotc/monorepo-diff:
           watch:
@@ -9,6 +9,8 @@ steps:
                 command: buildkite-agent pipeline upload .buildkite/test.yml
                 env:
                   - CONTAINER_NAME=cfnlint
+  - label: "Triggering lint pipelines"
+    plugins:
       - chronotc/monorepo-diff:
           watch:
             - path: cfnlint
