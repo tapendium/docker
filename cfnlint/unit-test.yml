@@ -1,7 +1,22 @@
 schemaVersion: "2.0.0"
-fileExistenceTests:
-  - name: "Check output.yml exists"
-    path: "./output.yml"
-    shouldExist: true
-    uid: 1000
-    gid: 1000
+
+commandTests:
+  # check the cfn-lint binary is in the correct location
+  - name: "cfnlint installation"
+    command: "which"
+    args: ["cfn-lint"]
+    expectedOutput: ["/usr/local/bin/cfn-lint"]
+
+  # check the cfn-lint version is the correct version
+  - name: "cfnlint version"
+    command: "cfn-lint"
+    args: ["-v"]
+    expectedOutput: [".*0.6.*"]
+
+  # check the cfn-lint version is the correct version
+  - name: "cfnlint run on json file"
+    setup:
+      [["touch", "/tmp/Output.json"], ["echo", "{}", ">>", "/tmp/Output.json"]]
+    command: "cfn-lint"
+    args: ["-t", "/tmp/Output.json"]
+    expectedOutput: [""]
