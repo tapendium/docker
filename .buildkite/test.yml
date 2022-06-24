@@ -3,7 +3,7 @@ steps:
     command:
       - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
       - >-
-        "docker run --rm -i -v $(pwd):/workdir --workdir /workdir 
+        "docker run --rm -i -v ${BUILDKITE_BUILD_CHECKOUT_PATH}:/workdir --workdir /workdir 
         gcr.io/gcp-runtimes/container-structure-test:latest 
         test --image ${CONTAINER_NAME} 
         --config /workdir/${CONTAINER_NAME}/unit-test.yml"
