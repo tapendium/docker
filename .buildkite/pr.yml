@@ -2,6 +2,7 @@ steps:
   - label: "Triggering tests pipelines"
     plugins:
       - chronotc/monorepo-diff:
+          diff: "git diff --name-only HEAD..main"
           watch:
             - path: cfnlint
               config:
@@ -12,6 +13,7 @@ steps:
   - label: "Triggering lint pipelines"
     plugins:
       - chronotc/monorepo-diff:
+          diff: "git diff --name-only HEAD..main"
           watch:
             - path: cfnlint
               config:
