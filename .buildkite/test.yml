@@ -2,14 +2,15 @@ steps:
   - label: "Dockerfile unit-test pipeline"
     command:
       - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
+      - "docker image ls"
       - >-
         "docker run --rm -i
-        -v ${BUILDKITE_BUILD_CHECKOUT_PATH}:/checkout_dir
+        -v /workdir:/workdir
         -v /var/run/docker.sock:/var/run/docker.sock
-        --workdir /checkout_dir
+        --workdir /workdir
         gcr.io/gcp-runtimes/container-structure-test:latest
         test --image ${CONTAINER_NAME}
-        --config /checkout_dir/${CONTAINER_NAME}/unit-test.yml"
+        --config /workdir/${CONTAINER_NAME}/unit-test.yml"
     plugins:
       - docker#v3.13.0:
           image: docker:latest
