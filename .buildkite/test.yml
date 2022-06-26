@@ -4,7 +4,7 @@ steps:
       - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
       - "docker image ls"
       - >-
-        "docker run --rm -i
+        "docker run --rm -i -D
         -v /workdir:/workdir
         -v /var/run/docker.sock:/var/run/docker.sock
         --workdir /workdir
