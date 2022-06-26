@@ -3,6 +3,7 @@ steps:
     command:
       - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
       - "docker image ls"
+      - "ls -la ."
       - >-
         "docker run --rm -i -D
         -v /workdir:/workdir
