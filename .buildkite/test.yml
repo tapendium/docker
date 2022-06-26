@@ -2,18 +2,14 @@ steps:
   - label: "Dockerfile unit-test pipeline"
     command:
       - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
-      - "docker image ls"
-      - "ls -la ."
-      - "pwd"
-      - "which curl"
-      # - >-
-      #   "docker run --rm -i
-      #   -v /workdir:/workdir
-      #   -v /var/run/docker.sock:/var/run/docker.sock
-      #   --workdir /workdir
-      #   gcr.io/gcp-runtimes/container-structure-test:latest
-      #   test --image ${CONTAINER_NAME}
-      #   --config ./${CONTAINER_NAME}/unit-test.yml"
+      - >-
+        "docker run --rm -i
+        -v /workdir:/workdir
+        -v /var/run/docker.sock:/var/run/docker.sock
+        --workdir /workdir
+        gcr.io/gcp-runtimes/container-structure-test:latest
+        test --image ${CONTAINER_NAME}
+        --config ./${CONTAINER_NAME}/unit-test.yml"
     plugins:
       - docker#v3.13.0:
           image: docker:latest
