@@ -4,14 +4,15 @@ steps:
       - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
       - "docker image ls"
       - "ls -la ."
-      # - >-
-      #   "docker run --rm -i -D
-      #   -v /workdir:/workdir
-      #   -v /var/run/docker.sock:/var/run/docker.sock
-      #   --workdir /workdir
-      #   gcr.io/gcp-runtimes/container-structure-test:latest
-      #   test --image ${CONTAINER_NAME}
-      #   --config /workdir/${CONTAINER_NAME}/unit-test.yml"
+      - "pwd"
+      - >-
+        "docker run --rm -i
+        -v /workdir:/workdir
+        -v /var/run/docker.sock:/var/run/docker.sock
+        --workdir /workdir
+        gcr.io/gcp-runtimes/container-structure-test:latest
+        test --image ${CONTAINER_NAME}
+        --config ./${CONTAINER_NAME}/unit-test.yml"
     plugins:
       - docker#v3.13.0:
           image: docker:latest
