@@ -2,11 +2,12 @@ steps:
   - label: "Dockerfile unit-test pipeline"
     command:
       - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
+      - "ls -la $(pwd)"
       - >-
         "docker run --rm -i
-        -v /workdir:/workdir
+        -v $(pwd):/tmp/docker
         -v /var/run/docker.sock:/var/run/docker.sock
-        --workdir /workdir
+        --workdir /tmp/docker
         gcr.io/gcp-runtimes/container-structure-test:latest
         test --image ${CONTAINER_NAME}
-        --config /workdir/${CONTAINER_NAME}/unit-test.yml"
+        --config /tmp/docker/${CONTAINER_NAME}/unit-test.yml"
