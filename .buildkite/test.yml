@@ -1,7 +1,10 @@
 steps:
-  - label: "Build container"
+  - label: "Build image"
     command:
       - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
+  - label: "list images"
+    command:
+      - "docker image ls"
   - label: "Dockerfile unit-test container"
     plugins:
       - docker#v3.13.0:
