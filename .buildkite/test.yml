@@ -7,22 +7,22 @@ steps:
     depends_on: build
     command:
       - "docker image ls"
-        #  - label: "unit tests"
-        #    depends_on: build
-        #    command:
-        #      - "docker run --rm -i -v ${BUILDKITE_BUILD_CHECKOUT_PATH}:/currentdir/app -v /var/run/docker.sock:/var/run/docker.sock gcr.io/gcp-runtimes/container-structure-test:latest test --image ${CONTAINER_NAME} --config /currentdir/app/${CONTAINER_NAME}/unit-test.yml"
-  - label: "Dockerfile unit-test container"
+  - label: "unit tests"
     depends_on: build
-    plugins:
-      - docker#v3.13.0:
-          image: "gcr.io/gcp-runtimes/container-structure-test:latest"
-          propagate-environment: true
-          volumes:
-            - "${BUILDKITE_BUILD_CHECKOUT_PATH}:/currentdir/app"
-            - "/var/run/docker.sock:/var/run/docker.sock"
-          command:
-            - "test"
-            - "--image"
-            - "${CONTAINER_NAME}"
-            - "--config"
-            - "/currentdir/app/${CONTAINER_NAME}/unit-test.yml"
+    command:
+      - "docker run --rm -i --platform linux/arm64/v8 -v ${BUILDKITE_BUILD_CHECKOUT_PATH}:/currentdir/app -v /var/run/docker.sock:/var/run/docker.sock gcr.io/gcp-runtimes/container-structure-test:latest test --image ${CONTAINER_NAME} --config /currentdir/app/${CONTAINER_NAME}/unit-test.yml"
+         # - label: "Dockerfile unit-test container"
+         #   depends_on: build
+         #   plugins:
+         #     - docker#v3.13.0:
+         #         image: "gcr.io/gcp-runtimes/container-structure-test:latest"
+         #         propagate-environment: true
+         #         volumes:
+         #           - "${BUILDKITE_BUILD_CHECKOUT_PATH}:/currentdir/app"
+         #           - "/var/run/docker.sock:/var/run/docker.sock"
+         #         command:
+         #           - "test"
+         #           - "--image"
+         #           - "${CONTAINER_NAME}"
+         #           - "--config"
+         #           - "/currentdir/app/${CONTAINER_NAME}/unit-test.yml"
