@@ -16,13 +16,6 @@ steps:
       - "export PATH=$PATH:$HOME/bin"
       - "mv container-structure-test-linux-arm64 $HOME/bin/container-structure-test"
       - "container-structure-test test --image ${CONTAINER_NAME} --config /currentdir/app/${CONTAINER_NAME}/unit-test.yml"
-    plugins:
-      - docker#v3.13.0:
-          image: "ubuntu:latest"
-          propagate-environment: true
-          volumes:
-            - "${BUILDKITE_BUILD_CHECKOUT_PATH}:/currentdir/app"
-            - "/var/run/docker.sock:/var/run/docker.sock"
         # - label: "unit tests"
         #   depends_on: build
         #   command:
