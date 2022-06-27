@@ -11,6 +11,19 @@ steps:
     depends_on: build
     plugins:
       - docker#v3.13.0:
+          image: "ubuntu:latest"
+          propagate-environment: true
+          workdir: "/currentdir/app"
+          volumes:
+            - "${BUILDKITE_BUILD_CHECKOUT_PATH}:/currentdir/app"
+            - "/var/run/docker.sock:/var/run/docker.sock"
+          command:
+            - "ls"
+            - "-la"
+  - label: "Dockerfile unit-test container"
+    depends_on: build
+    plugins:
+      - docker#v3.13.0:
           image: "gcr.io/gcp-runtimes/container-structure-test:latest"
           propagate-environment: true
           workdir: "/currentdir/app"
