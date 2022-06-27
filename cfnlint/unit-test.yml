@@ -13,7 +13,7 @@ commandTests:
     args: ["-v"]
     expectedOutput: [".*0.6.*"]
 
-  # check the cfn-lint version is the correct version
+  # check the cfn-lint run on a file
   - name: "cfnlint run on json file"
     setup:
       [["touch", "/tmp/Output.json"], ["echo", "{}", ">>", "/tmp/Output.json"]]
