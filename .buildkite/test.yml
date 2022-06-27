@@ -4,8 +4,7 @@ steps:
       - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
       - >-
         "docker run --rm -i
-        -v $(pwd):/tmp/docker
-        -v /var/run/docker.sock:/var/run/docker.sock
+        -v /tmp:/tmp/docker
         --workdir /tmp/docker
         ubuntu ls -la"
       # - >-
