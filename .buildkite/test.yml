@@ -14,6 +14,8 @@ steps:
       - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
   - label: "Dockerfile unit-test container"
     depends_on: build
+    env:
+      CONTAINER_NAME: "${CONTAINER_NAME}"
     command: "./scripts/unit-test.sh"
     plugins:
       - gencer/cache#v2.4.10: *test-client-cache
