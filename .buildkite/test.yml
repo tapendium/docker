@@ -11,7 +11,7 @@ steps:
     depends_on: build
     plugins:
       - docker#v3.13.0:
-          image: "zemanlx/container-structure-test:latest"
+          image: "zemanlx/container-structure-test:v1.9.1-alpine"
           propagate-environment: true
           volumes:
             - "${BUILDKITE_BUILD_CHECKOUT_PATH}:/currentdir/app"
