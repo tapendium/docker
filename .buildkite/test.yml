@@ -7,6 +7,7 @@ steps:
       - docker#v3.13.0:
           image: "gcr.io/gcp-runtimes/container-structure-test:latest"
           propagate-environment: true
+          workdir: "/currentdir/app"
           volumes:
             - "${BUILDKITE_BUILD_CHECKOUT_PATH}:/currentdir/app"
             - "/var/run/docker.sock:/var/run/docker.sock"
