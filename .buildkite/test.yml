@@ -8,11 +8,11 @@ steps:
           image: "gcr.io/gcp-runtimes/container-structure-test:latest"
           propagate-environment: true
           volumes:
-            - "${BUILDKITE_BUILD_CHECKOUT_PATH}:/tmp/app"
+            - "${BUILDKITE_BUILD_CHECKOUT_PATH}:/currentdir/app"
             - "/var/run/docker.sock:/var/run/docker.sock"
           command:
             - "test"
             - "--image"
             - "${CONTAINER_NAME}"
             - "--config"
-            - "/tmp/app/${CONTAINER_NAME}/unit-test.yml"
+            - "/currentdir/app/${CONTAINER_NAME}/unit-test.yml"
