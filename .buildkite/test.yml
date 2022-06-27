@@ -12,10 +12,6 @@ steps:
     key: build
     command:
       - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
-  - label: "list images"
-    depends_on: build
-    command:
-      - "docker image ls"
   - label: "Dockerfile unit-test container"
     depends_on: build
     command: "./scripts/unit-test.sh"
