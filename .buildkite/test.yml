@@ -15,6 +15,7 @@ steps:
           propagate-environment: true
           volumes:
             - "${BUILDKITE_BUILD_CHECKOUT_PATH}:/currentdir/app"
+            - "/var/run/docker.sock:/var/run/docker.sock"
           command:
             - "test"
             - "--image"
