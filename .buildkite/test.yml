@@ -1,3 +1,12 @@
+test-client-cache: &test-client-cache
+  id: test-client
+  key: "v1-cache-${BUILDKITE_COMMIT?}"
+  backend: s3
+  s3:
+    bucket: "tap-buildkite-cache"
+  paths:
+    - "$HOME/bin/container-structure-test"
+
 steps:
   - label: "Build image"
     key: build
@@ -9,10 +18,6 @@ steps:
       - "docker image ls"
   - label: "Dockerfile unit-test container"
     depends_on: build
-    command:
-      - "curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-arm64"
-      - "chmod +x container-structure-test-linux-arm64"
-      - "mkdir -p $HOME/bin"
-      - "export PATH=$PATH:$HOME/bin"
-      - "mv container-structure-test-linux-arm64 $HOME/bin/container-structure-test"
-      - "container-structure-test test --image ${CONTAINER_NAME} --config $(pwd)/${CONTAINER_NAME}/unit-test.yml"
+    command: "./scripts/unit-test.sh"
+    plugins:
+      - gencer/cache#v2.4.10: *test-client-cache
