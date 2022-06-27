@@ -14,9 +14,8 @@ steps:
           image: "ubuntu:latest"
           propagate-environment: true
           volumes:
-            - "${BUILDKITE_BUILD_CHECKOUT_PATH}:/currentdir/appubuntu"
-            - "/var/run/docker.sock:/var/run/docker.sock"
-          workdir: "/currentdir/appubuntu"
+            - "${BUILDKITE_BUILD_CHECKOUT_PATH}:/currentapp/ubuntu"
+          workdir: "/currentapp/ubuntu"
           command:
             - "ls"
             - "-la"
