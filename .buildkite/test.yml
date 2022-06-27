@@ -1,17 +1,18 @@
 steps:
-  - label: "Dockerfile unit-test pipeline"
+  - label: "Build container"
     command:
       - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
-      - >-
-        "docker run --rm -i
-        -v /tmp:/tmp/docker
-        --workdir /tmp/docker
-        ubuntu ls -la"
-      # - >-
-      #   "docker run --rm -i
-      #   -v $(pwd):/tmp/docker
-      #   -v /var/run/docker.sock:/var/run/docker.sock
-      #   --workdir /tmp/docker
-      #   gcr.io/gcp-runtimes/container-structure-test:latest
-      #   test --image ${CONTAINER_NAME}
-      #   --config /tmp/docker/${CONTAINER_NAME}/unit-test.yml"
+  - label: "Dockerfile unit-test container"
+    plugins:
+      - docker#v3.13.0:
+          image: "gcr.io/gcp-runtimes/container-structure-test:latest"
+          propagate-environment: true
+          volumes:
+            - "${BUILDKITE_BUILD_CHECKOUT_PATH}:/tmp/app"
+            - "/var/run/docker.sock:/var/run/docker.sock"
+          command:
+            - "test"
+            - "--image"
+            - "${CONTAINER_NAME}"
+            - "--config"
+            - "/tmp/app/${CONTAINER_NAME}/unit-test.yml"
