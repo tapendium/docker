@@ -10,4 +10,4 @@ steps:
         --workdir /tmp/docker
         gcr.io/gcp-runtimes/container-structure-test:latest
         test --image ${CONTAINER_NAME}
-        --config /tmp/docker/${CONTAINER_NAME}/unit-test.yml"
+        --config $(pwd)/${CONTAINER_NAME}/unit-test.yml"
