@@ -6,8 +6,8 @@ steps:
   - label: ":docker: Publish to docker hub"
     depends_on: build
     command:
-      - "docker tag ${CONTAINER_NAME}:latest tapendium/${CONTAINER_NAME}:latest"
-      - "docker push tapendium/${CONTAINER_NAME}:latest"
+      - "docker tag ${CONTAINER_NAME} tapendium/${BUILDKITE_TAG}"
+      - "docker push tapendium/${BUILDKITE_TAG}"
     plugins:
       - docker-login#v2.0.1:
-          username: tapendium
+          username: "${DOCKER_LOGIN_USERNAME}"
