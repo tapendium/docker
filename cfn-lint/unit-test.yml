@@ -2,19 +2,19 @@ schemaVersion: "2.0.0"
 
 commandTests:
   # check the cfn-lint binary is in the correct location
-  - name: "cfnlint installation"
+  - name: "cfn-lint installation"
     command: "which"
     args: ["cfn-lint"]
     expectedOutput: ["/usr/local/bin/cfn-lint"]
 
   # check the cfn-lint version is the correct version
-  - name: "cfnlint version"
+  - name: "cfn-lint version"
     command: "cfn-lint"
     args: ["-v"]
     expectedOutput: [".*0.6.*"]
 
   # check the cfn-lint run on a file
-  - name: "cfnlint run on json file"
+  - name: "cfn-lint run on json file"
     setup:
       [["touch", "/tmp/Output.json"], ["echo", "{}", ">>", "/tmp/Output.json"]]
     command: "cfn-lint"
