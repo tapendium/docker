@@ -3,6 +3,7 @@ steps:
     plugins:
       - chronotc/monorepo-diff:
           diff: "git diff --name-only HEAD..main"
+          log_level: "debug"
           watch:
             - path: cfn-lint
               config:
@@ -14,6 +15,7 @@ steps:
     plugins:
       - chronotc/monorepo-diff:
           diff: "git diff --name-only HEAD..main"
+          log_level: "debug"
           watch:
             - path: cfn-lint
               config:
