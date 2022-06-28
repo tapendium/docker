@@ -1,0 +1,21 @@
+test-client-cache: &test-client-cache
+  id: test-client
+  key: "v1-cache-${BUILDKITE_COMMIT?}"
+  backend: s3
+  s3:
+    bucket: "tap-buildkite-cache"
+  paths:
+    - "$HOME/bin/container-structure-test"
+
+steps:
+  - label: "Build image"
+    key: build
+    command:
+      - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
+  - label: "Dockerfile unit-test container"
+    depends_on: build
+    env:
+      CONTAINER_NAME: "${CONTAINER_NAME}"
+    command: "./scripts/unit-test.sh"
+    plugins:
+      - gencer/cache#v2.4.10: *test-client-cache

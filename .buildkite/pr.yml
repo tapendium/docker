@@ -1,11 +1,23 @@
 steps:
+  - label: "Triggering tests pipelines"
+    plugins:
+      - chronotc/monorepo-diff:
+          diff: "git diff --name-only HEAD..main"
+          watch:
+            - path: cfn-lint
+              config:
+                label: ":pipeline: Upload unit-test pipeline for cfn-lint"
+                command: buildkite-agent pipeline upload .buildkite/test.yml
+                env:
+                  - CONTAINER_NAME=cfn-lint
   - label: "Triggering lint pipelines"
     plugins:
       - chronotc/monorepo-diff:
+          diff: "git diff --name-only HEAD..main"
           watch:
-            - path: cfnlint
+            - path: cfn-lint
               config:
-                label: ":pipeline: Upload lint pipeline for cfnlint container"
+                label: ":pipeline: Upload lint pipeline for cfn-lint container"
                 command: buildkite-agent pipeline upload .buildkite/lint.yml
                 env:
-                  - CONTAINER_NAME=cfnlint
+                  - CONTAINER_NAME=cfn-lint
