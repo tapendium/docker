@@ -9,7 +9,6 @@ steps:
             DOCKER_LOGIN_PASSWORD:
               secret-uuid: zisch5odkndtzeb6pqupfazww4
               field: credential
-      - docker-login#v2.1.0:
-          username: "${BUILDKITE_PLUGIN_DOCKER_LOGIN_USERNAME}"
+      - docker-login#v2.1.0
     # commands:
     #   - echo "${DOCKER_LOGIN_PASSWORD}" | docker login -u "${DOCKER_LOGIN_USERNAME}" --password-stdin
