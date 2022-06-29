@@ -1,14 +1,14 @@
+docker-credentials: &docker-credentials
+  tapendium/1password-secrets#v1.1.0:
+    env:
+      DOCKER_LOGIN_PASSWORD:
+        secret-uuid: zisch5odkndtzeb6pqupfazww4
+        field: credential
+      DOCKER_LOGIN_USERNAME:
+        secret-uuid: zisch5odkndtzeb6pqupfazww4
+        field: username
+
 steps:
-  - label: ":docker: Load Docker hub credentials"
-    plugins:
-      - tapendium/1password-secrets#v1.1.0:
-          env:
-            DOCKER_LOGIN_PASSWORD:
-              secret-uuid: zisch5odkndtzeb6pqupfazww4
-              field: credential
-            DOCKER_LOGIN_USERNAME:
-              secret-uuid: zisch5odkndtzeb6pqupfazww4
-              field: username
   - label: ":pipeline: triggering deploy pipelines"
     if: build.tag !~ /^skip:/
     commands: 
@@ -17,6 +17,8 @@ steps:
     env:
       - DOCKER_LOGIN_PASSWORD
       - DOCKER_LOGIN_USERNAME
+    plugins:
+      - *docker-credentials
   - label: ":pipeline: triggering custom deploy pipelines"
     if: build.tag =~ /^skip:\d+\.\d+\.\d+$/
     command: echo "I have a custom deployment pipeline"
