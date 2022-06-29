@@ -1,7 +1,15 @@
 steps:
   - label: ":docker: Publish to docker hub"
     plugins:
+      - tapendium/1password-secrets#v1.1.0:
+          env:
+            DOCKER_LOGIN_PASSWORD:
+              secret-uuid: zisch5odkndtzeb6pqupfazww4
+              field: credential
+            DOCKER_LOGIN_USERNAME:
+              secret-uuid: zisch5odkndtzeb6pqupfazww4
+              field: username
       - docker-login#v2.1.0:
           username: "${DOCKER_LOGIN_USERNAME}"
     # commands:
-    #   - echo c228c5fe-d0da-469e-b781-ad824d688872 | docker login -u lewisliew --password-stdin
+    #   - echo "${DOCKER_LOGIN_PASSWORD}" | docker login -u "${DOCKER_LOGIN_USERNAME}" --password-stdin
