@@ -1,0 +1,5 @@
+steps:
+  - label: ":docker: Publish to docker hub"
+    depends_on: build
+    command:
+      - docker login -u "${DOCKER_LOGIN_USERNAME}" -p "${DOCKER_LOGIN_PASSWODR}" 
