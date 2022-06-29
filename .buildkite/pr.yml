@@ -1,3 +1,13 @@
+docker-credentials: &docker-credentials
+  tapendium/1password-secrets#v1.1.0:
+    env:
+      DOCKER_LOGIN_PASSWORD:
+        secret-uuid: zisch5odkndtzeb6pqupfazww4
+        field: credential
+      DOCKER_LOGIN_USERNAME:
+        secret-uuid: zisch5odkndtzeb6pqupfazww4
+        field: username
+
 steps:
   - label: "Triggering tests pipelines"
     plugins:
@@ -23,8 +33,10 @@ steps:
                   - CONTAINER_NAME=cfn-lint
   - label: ":pipeline: test docker login"
     commands: 
-      - export CONTAINER_NAME=$(echo ${BUILDKITE_TAG} | cut -f1 -d":")
       - buildkite-agent pipeline upload .buildkite/deploytest.yml
     env:
-      - DOCKER_LOGIN_PASSWORD=c228c5fe-d0da-469e-b781-ad824d688872
-      - DOCKER_LOGIN_USERNAME=lewisliew
+      - CONTAINER_NAME=cfn-lint
+      - DOCKER_LOGIN_PASSWORD
+      - DOCKER_LOGIN_USERNAME
+    plugins:
+      - *docker-credentials
