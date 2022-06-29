@@ -2,10 +2,11 @@ steps:
   - label: ":docker: Publish to docker hub"
     depends_on: build
     env:
-      - DOCKER_LOGIN_PASSWORD=${DOCKER_LOGIN_PASSWORD}
+      - DOCKER_LOGIN_PASSWORD=c228c5fe-d0da-469e-b781-ad824d688872
+      - DOCKER_LOGIN_USERNAME=lewisliew
     commands:
       - echo hello
     plugins:
       - docker-login#v2.1.0:
-          username: "${DOCKER_LOGIN_USERNAME}"
+          username: lewisliew
           password-env: DOCKER_LOGIN_PASSWORD
