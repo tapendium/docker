@@ -3,6 +3,8 @@ steps:
     depends_on: build
     env:
       - DOCKER_LOGIN_PASSWORD=${DOCKER_LOGIN_PASSWORD}
+    commands:
+      - echo hello
     plugins:
       - docker-login#v2.1.0:
           username: "${DOCKER_LOGIN_USERNAME}"
