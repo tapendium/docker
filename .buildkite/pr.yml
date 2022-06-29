@@ -1,7 +1,7 @@
 steps:
   - label: "Triggering tests pipelines"
     plugins:
-      - chronotc/monorepo-diff:
+      - chronotc/monorepo-diff#v2.3.0:
           diff: "git diff --name-only HEAD..main"
           log_level: "debug"
           watch:
@@ -13,7 +13,7 @@ steps:
                   - CONTAINER_NAME=cfn-lint
   - label: "Triggering lint pipelines"
     plugins:
-      - chronotc/monorepo-diff:
+      - chronotc/monorepo-diff#v2.3.0:
           diff: "git diff --name-only HEAD..main"
           log_level: "debug"
           watch:
