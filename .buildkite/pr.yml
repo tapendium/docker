@@ -1,5 +1,6 @@
 steps:
   - label: ":yaml: YAML Lint"
+    if: build.source == "hello"
     plugins:
       - docker#v3.13.0:
           command: ["./"]
