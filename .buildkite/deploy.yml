@@ -6,8 +6,8 @@ steps:
   - label: ":docker: Publish to docker hub"
     depends_on: build
     command:
-      - "docker tag ${CONTAINER_NAME} tapendium/${BUILDKITE_TAG}"
-      - "docker push tapendium/${BUILDKITE_TAG}"
+      - "docker tag ${CONTAINER_NAME} tapendium/${IMAGE_TAG_NAME}"
+      - "docker push tapendium/${IMAGE_TAG_NAME}"
     plugins:
       - tapendium/1password-secrets#v1.1.0:
           env:
