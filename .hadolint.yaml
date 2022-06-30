@@ -1,7 +1,6 @@
-failure-threshold: info               # name of threshold level (error | warning | info | style | ignore | none)
-format: tty                           # Output format (tty | json | checkstyle | codeclimate | gitlab_codeclimate | gnu | codacy)
-no-color: true                        # true | false
-no-fail: false                        # true | false
-strict-labels: true                   # true | false
-disable-ignore-pragma: true           # true | false
-
+failure-threshold: info
+format: tty
+no-color: true
+no-fail: false
+strict-labels: true
+disable-ignore-pragma: true
