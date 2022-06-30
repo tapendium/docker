@@ -1,0 +1,9 @@
+steps:
+  - label: ":pipeline: triggering deploy pipelines"
+    if: build.tag !~ /^skip:/
+    commands: 
+      - export CONTAINER_NAME=$(echo ${BUILDKITE_TAG} | cut -f1 -d":")
+      - buildkite-agent pipeline upload .buildkite/deploy.yml
+  - label: ":pipeline: triggering custom deploy pipelines"
+    if: build.tag =~ /^skip:\d+\.\d+\.\d+$/
+    command: echo "I have a custom deployment pipeline"

@@ -1,0 +1,20 @@
+steps:
+  - label: ":package: Build image"
+    key: build
+    command:
+      - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
+  - label: ":docker: Publish to docker hub"
+    depends_on: build
+    command:
+      - "docker tag ${CONTAINER_NAME} tapendium/${BUILDKITE_TAG}"
+      - "docker push tapendium/${BUILDKITE_TAG}"
+    plugins:
+      - tapendium/1password-secrets#v1.1.0:
+          env:
+            BUILDKITE_PLUGIN_DOCKER_LOGIN_USERNAME:
+              secret-uuid: zisch5odkndtzeb6pqupfazww4
+              field: username
+            DOCKER_LOGIN_PASSWORD:
+              secret-uuid: zisch5odkndtzeb6pqupfazww4
+              field: credential
+      - docker-login#v2.1.0

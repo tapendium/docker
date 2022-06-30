@@ -1,4 +1,0 @@
-steps:
-  - label: "Init merge pipeline"
-    commands:
-      - echo 'Hello World'
