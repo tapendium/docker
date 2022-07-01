@@ -6,5 +6,5 @@ steps:
       - export IMAGE_TAG_NAME=$(echo ${BUILDKITE_TAG} | tr / :)
       - buildkite-agent pipeline upload .buildkite/deploy.yml
   - label: ":pipeline: triggering custom deploy pipelines"
-    if: build.tag =~ /^skip\/\d+\.\d+\.\d+\$/
+    if: build.tag =~ /^skip\/\d+\.\d+\.\d+/
     command: echo "I have a custom deployment pipeline"
