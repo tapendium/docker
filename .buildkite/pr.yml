@@ -1,4 +1,11 @@
 steps:
+  - label: ":yaml: YAML Lint"
+    plugins:
+      - docker#v3.13.0:
+          command: ["./"]
+          image: "cytopia/yamllint:latest"
+      - seek-oss/github-merged-pr#v1.1.2:
+          mode: checkout
   - label: "Triggering tests pipelines"
     plugins:
       - chronotc/monorepo-diff#v2.3.0:
