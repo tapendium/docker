@@ -1,4 +1,4 @@
-failure-threshold: info
+failure-threshold: error
 format: tty
 no-color: true
 no-fail: false

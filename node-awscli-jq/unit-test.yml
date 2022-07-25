@@ -1,0 +1,8 @@
+schemaVersion: "2.0.0"
+
+commandTests:
+  # check that image builds for the right architecture
+  - name: "node-awscli-jq architecture check"
+    command: "node-awscli-jq"
+    args: ["uname -m"]
+    expectedOutput: ["aarch64"]
