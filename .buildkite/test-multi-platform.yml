@@ -12,7 +12,8 @@ steps:
   # - label: "Build multi platform image"
   #   key: build
   #   commands:
-  #     - "docker buildx create --name mybuilder --driver-opt network=host --use"
+  #     - "docker buildx create
+  #       --name mybuilder --driver-opt network=host --use"
   #     - "docker buildx build -t ${CONTAINER_NAME}
   #       --platform linux/arm64,linux/amd64
   #       -f ./${CONTAINER_NAME}/Dockerfile ."
