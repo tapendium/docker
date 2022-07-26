@@ -9,17 +9,34 @@ tapendium-aliases:
       - "$HOME/bin/container-structure-test"
 
 steps:
-  - label: "Build multi platform image"
+  # - label: "Build multi platform image"
+  #   key: build
+  #   commands:
+  #     - "docker buildx create --name mybuilder --driver-opt network=host --use"
+  #     - "docker buildx build -t ${CONTAINER_NAME}
+  #       --platform linux/arm64,linux/amd64
+  #       -f ./${CONTAINER_NAME}/Dockerfile ."
+
+  - label: "[{{matrix}}] Build multi platform image"
     key: build
     commands:
-      - "docker buildx create --name mybuilder --driver-opt network=host --use"
-      - "docker buildx build -t ${CONTAINER_NAME}
-        --platform linux/arm64,linux/amd64
+      - "docker build -t ${CONTAINER_NAME}:manifest-{{matrix}}
+        --build-arg TARGETPLATFORM={{matrix}}
+        --platform linux/{{matrix}}
         -f ./${CONTAINER_NAME}/Dockerfile ."
-  - label: "Dockerfile unit-test container"
+    matrix:
+      - arm64
+      - amd64
+
+  - label: "[{{matrix}}] Dockerfile unit-test container"
     depends_on: build
     env:
       CONTAINER_NAME: "${CONTAINER_NAME}"
+      SUFFIX: ":manifest-{{matrix}}"
+      TEST_SUFFIX: "-{{matrix}}"
     command: "./scripts/unit-test.sh"
     plugins:
       - gencer/cache#v2.4.10: *test-client-cache
+    matrix:
+      - arm64
+      - amd64

@@ -16,5 +16,5 @@ if ! command -v container-structure-test &>/dev/null; then
 	mv container-structure-test-linux-arm64 $HOME/bin/container-structure-test
 fi
 
-container-structure-test test --image ${CONTAINER_NAME} --config $(pwd)/${CONTAINER_NAME}/unit-test.yml
+container-structure-test test --image ${CONTAINER_NAME}${SUFFIX} --config $(pwd)/${CONTAINER_NAME}/unit-test${TEST_SUFFIX}.yml
 
