@@ -1,0 +1,32 @@
+tapendium-aliases:
+  test-client-cache: &test-client-cache
+    id: test-client
+    key: "v1-cache-${BUILDKITE_COMMIT?}"
+    backend: s3
+    s3:
+      bucket: "tap-buildkite-cache"
+    paths:
+      - "$HOME/bin/container-structure-test"
+
+steps:
+  - label: "[{{matrix}}] Build multi platform image"
+    key: build
+    commands:
+      - "docker build -t ${CONTAINER_NAME}:manifest-{{matrix}}
+        --build-arg TARGETPLATFORM={{matrix}}
+        --platform linux/{{matrix}}
+        -f ./${CONTAINER_NAME}/Dockerfile ."
+    matrix:
+      - arm64
+
+  - label: "[{{matrix}}] Dockerfile unit-test container"
+    depends_on: build
+    env:
+      CONTAINER_NAME: "${CONTAINER_NAME}"
+      SUFFIX: ":manifest-{{matrix}}"
+      TEST_SUFFIX: "-{{matrix}}"
+    command: "./scripts/unit-test.sh"
+    plugins:
+      - gencer/cache#v2.4.10: *test-client-cache
+    matrix:
+      - arm64
