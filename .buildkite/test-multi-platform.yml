@@ -27,7 +27,7 @@ steps:
         -f ./${CONTAINER_NAME}/Dockerfile ."
     matrix:
       - arm64
-      - amd64
+      - x86_64
 
   - label: "[{{matrix}}] Dockerfile unit-test container"
     depends_on: build
@@ -40,4 +40,4 @@ steps:
       - gencer/cache#v2.4.10: *test-client-cache
     matrix:
       - arm64
-      - amd64
+      - x86_64

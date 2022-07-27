@@ -12,7 +12,7 @@ RUN if (echo "${TARGETPLATFORM}" | grep arm64); \
     else curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2-x86_64.zip" && unzip awscliv2-x86_64.zip; \
     fi
 RUN ./aws/install
-# RUN aws --version
+RUN aws --version
 
 # jq
 RUN apt-get update && \
