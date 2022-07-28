@@ -12,7 +12,7 @@ steps:
   - label: "[{{matrix}}] Build multi platform image"
     key: build
     commands:
-      - "docker build -t ${CONTAINER_NAME}:manifest-{{matrix}}
+      - "docker build -t ${CONTAINER_NAME}:{{matrix}}
         --build-arg TARGETPLATFORM={{matrix}}
         --platform linux/{{matrix}}
         -f ./${CONTAINER_NAME}/Dockerfile ."
@@ -23,7 +23,7 @@ steps:
     depends_on: build
     env:
       CONTAINER_NAME: "${CONTAINER_NAME}"
-      SUFFIX: ":manifest-{{matrix}}"
+      SUFFIX: ":{{matrix}}"
       TEST_SUFFIX: "-{{matrix}}"
     command: "./scripts/unit-test.sh"
     plugins:

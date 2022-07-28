@@ -2,12 +2,22 @@ steps:
   - label: ":package: Build image"
     key: build
     command:
-      - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
+      - "docker build -t ${CONTAINER_NAME}:{{matrix}}
+        --build-arg TARGETPLATFORM={{matrix}}
+        --platform linux/{{matrix}}
+        -f ./${CONTAINER_NAME}/Dockerfile ."
+    matrix:
+      - arm64
+
   - label: ":docker: Publish to docker hub"
+    key: publish
     depends_on: build
     command:
-      - "docker tag ${CONTAINER_NAME} tapendium/${IMAGE_TAG_NAME}"
-      - "docker push tapendium/${IMAGE_TAG_NAME}"
+      - "docker tag ${CONTAINER_NAME}:{{matrix}}
+        tapendium/${IMAGE_TAG_NAME}:{{matrix}}"
+      - "docker push tapendium/${IMAGE_TAG_NAME}:{{matrix}}"
+    matrix:
+      - arm64
     plugins:
       - tapendium/1password-secrets#v1.1.0:
           env:
@@ -18,3 +28,12 @@ steps:
               secret-uuid: zisch5odkndtzeb6pqupfazww4
               field: credential
       - docker-login#v2.1.0
+
+  - label: ":docker::scroll: Create manifest"
+    depends_on: publish
+    command:
+      - "docker manifest create
+          tapendium/${IMAGE_TAG_NAME}
+          tapendium/${IMAGE_TAG_NAME}:$$ARM"
+    env:
+      ARM: arm64
