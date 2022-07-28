@@ -1,3 +1,16 @@
+tapendium-aliases:
+  docker-auth: &docker-auth
+    plugins:
+      - tapendium/1password-secrets#v1.1.0:
+          env:
+            BUILDKITE_PLUGIN_DOCKER_LOGIN_USERNAME:
+              secret-uuid: zisch5odkndtzeb6pqupfazww4
+              field: username
+            DOCKER_LOGIN_PASSWORD:
+              secret-uuid: zisch5odkndtzeb6pqupfazww4
+              field: credential
+      - docker-login#v2.1.0
+
 steps:
   - label: ":package: Build image"
     key: build
@@ -18,16 +31,7 @@ steps:
       - "docker push tapendium/${CONTAINER_NAME}:{{matrix}}"
     matrix:
       - arm64
-    plugins:
-      - tapendium/1password-secrets#v1.1.0:
-          env:
-            BUILDKITE_PLUGIN_DOCKER_LOGIN_USERNAME:
-              secret-uuid: zisch5odkndtzeb6pqupfazww4
-              field: username
-            DOCKER_LOGIN_PASSWORD:
-              secret-uuid: zisch5odkndtzeb6pqupfazww4
-              field: credential
-      - docker-login#v2.1.0
+    <<: *docker-auth
 
   - label: ":docker::scroll: Create manifest"
     depends_on: publish
@@ -38,3 +42,4 @@ steps:
       - "docker manifest push tapendium/${IMAGE_TAG_NAME}"
     env:
       ARM: arm64
+    <<: *docker-auth
