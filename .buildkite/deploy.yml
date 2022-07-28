@@ -14,8 +14,8 @@ steps:
     depends_on: build
     command:
       - "docker tag ${CONTAINER_NAME}:{{matrix}}
-        tapendium/${IMAGE_TAG_NAME}:{{matrix}}"
-      - "docker push tapendium/${IMAGE_TAG_NAME}:{{matrix}}"
+        tapendium/${CONTAINER_NAME}:{{matrix}}"
+      - "docker push tapendium/${CONTAINER_NAME}:{{matrix}}"
     matrix:
       - arm64
     plugins:
@@ -34,6 +34,6 @@ steps:
     command:
       - "docker manifest create
           tapendium/${IMAGE_TAG_NAME}
-          tapendium/${IMAGE_TAG_NAME}:$$ARM"
+          tapendium/${CONTAINER_NAME}:$$ARM"
     env:
       ARM: arm64
