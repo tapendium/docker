@@ -1,5 +1,5 @@
 tapendium-aliases:
-  docker-deploy: &docker-deploy
+  docker-auth: &docker-auth
     plugins:
       - tapendium/1password-secrets#v1.1.0:
           env:
@@ -31,7 +31,7 @@ steps:
       - "docker push tapendium/${CONTAINER_NAME}:{{matrix}}"
     matrix:
       - arm64
-    <<: *docker-deploy
+    <<: *docker-auth
 
   - label: ":docker::scroll: Create manifest"
     depends_on: publish
@@ -42,4 +42,4 @@ steps:
       - "docker manifest push tapendium/${IMAGE_TAG_NAME}"
     env:
       ARM: arm64
-    <<: *docker-deploy
+    <<: *docker-auth
