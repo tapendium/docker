@@ -35,5 +35,6 @@ steps:
       - "docker manifest create
           tapendium/${IMAGE_TAG_NAME}
           tapendium/${CONTAINER_NAME}:$$ARM"
+      - "docker manifest push tapendium/${IMAGE_TAG_NAME}"
     env:
       ARM: arm64
