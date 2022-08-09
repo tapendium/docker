@@ -20,3 +20,9 @@ commandTests:
     command: "cfn-lint"
     args: ["-t", "/tmp/Output.json"]
     expectedOutput: [""]
+
+  # check that image builds for the right architecture
+  - name: "architecture check"
+    command: "uname"
+    args: ["-m"]
+    expectedOutput: ["aarch64"]

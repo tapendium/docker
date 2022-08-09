@@ -9,14 +9,24 @@ tapendium-aliases:
       - "$HOME/bin/container-structure-test"
 
 steps:
-  - label: "Build image"
+  - label: "[{{matrix}}] Build multi platform image"
     key: build
-    command:
-      - "docker build -t ${CONTAINER_NAME} -f ./${CONTAINER_NAME}/Dockerfile ."
-  - label: "Dockerfile unit-test container"
+    commands:
+      - "docker build -t ${CONTAINER_NAME}:{{matrix}}
+        --build-arg TARGETPLATFORM={{matrix}}
+        --platform linux/{{matrix}}
+        -f ./${CONTAINER_NAME}/Dockerfile ."
+    matrix:
+      - arm64
+
+  - label: "[{{matrix}}] Dockerfile unit-test container"
     depends_on: build
     env:
       CONTAINER_NAME: "${CONTAINER_NAME}"
+      SUFFIX: ":{{matrix}}"
+      TEST_SUFFIX: "-{{matrix}}"
     command: "./scripts/unit-test.sh"
     plugins:
       - gencer/cache#v2.4.10: *test-client-cache
+    matrix:
+      - arm64
