@@ -21,7 +21,7 @@ steps:
               config:
                 label: ":pipeline: Upload unit-test pipeline for node-awscli-jq"
                 command: buildkite-agent pipeline upload
-                        .buildkite/test-multi-platform.yml
+                        .buildkite/test.yml
                 env:
                   - CONTAINER_NAME=node-awscli-jq
   - label: "Triggering lint pipelines"

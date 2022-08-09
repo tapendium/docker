@@ -1,0 +1,28 @@
+schemaVersion: "2.0.0"
+
+commandTests:
+  # check the cfn-lint binary is in the correct location
+  - name: "cfn-lint installation"
+    command: "which"
+    args: ["cfn-lint"]
+    expectedOutput: ["/usr/local/bin/cfn-lint"]
+
+  # check the cfn-lint version is the correct version
+  - name: "cfn-lint version"
+    command: "cfn-lint"
+    args: ["-v"]
+    expectedOutput: [".*0.6.*"]
+
+  # check the cfn-lint run on a file
+  - name: "cfn-lint run on json file"
+    setup:
+      [["touch", "/tmp/Output.json"], ["echo", "{}", ">>", "/tmp/Output.json"]]
+    command: "cfn-lint"
+    args: ["-t", "/tmp/Output.json"]
+    expectedOutput: [""]
+
+  # check that image builds for the right architecture
+  - name: "architecture check"
+    command: "uname"
+    args: ["-m"]
+    expectedOutput: ["x86_64"]
