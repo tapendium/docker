@@ -1,0 +1,28 @@
+schemaVersion: "2.0.0"
+
+commandTests:
+  - name: "node installation"
+    command: "which"
+    args: ["node"]
+    expectedOutput: ["/usr/local/bin/node"]
+
+  - name: "node version"
+    command: "node"
+    args: ["--version"]
+    expectedOutput: ["*.18.*"]
+
+  - name: "aws-cli installation"
+    command: "which"
+    args: ["aws"]
+    expectedOutput: ["/usr/local/bin/aws"]
+
+  - name: "jq installation"
+    command: "which"
+    args: ["jq"]
+    expectedOutput: ["/usr/bin/jq"]
+
+  # check that image builds for the right architecture
+  - name: "architecture check"
+    command: "uname"
+    args: ["-m"]
+    expectedOutput: ["aarch64"]
