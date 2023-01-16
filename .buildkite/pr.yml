@@ -26,7 +26,8 @@ steps:
                   - CONTAINER_NAME=node-awscli-jq
             - path: node18-awscli-jq
               config:
-                label: ":pipeline: Upload unit-test pipeline for node18-awscli-jq"
+                label: >-
+                  ":pipeline: Upload unit-test pipeline for node18-awscli-jq"
                 command: buildkite-agent pipeline upload
                         .buildkite/test.yml
                 env:
@@ -52,7 +53,8 @@ steps:
             - path: node18-awscli-jq
               config:
                 label: >-
-                  ":pipeline: Upload lint pipeline for node18-awscli-jq container"
+                  ":pipeline: Upload lint pipeline for 
+                    node18-awscli-jq container"
                 command: buildkite-agent pipeline upload .buildkite/lint.yml
                 env:
                   - CONTAINER_NAME=node18-awscli-jq
