@@ -53,7 +53,7 @@ steps:
             - path: node18-awscli-jq
               config:
                 label: >-
-                  ":pipeline: Upload lint pipeline for 
+                  ":pipeline: Upload lint pipeline for
                     node18-awscli-jq container"
                 command: buildkite-agent pipeline upload .buildkite/lint.yml
                 env:
