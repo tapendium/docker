@@ -1,14 +1,10 @@
 tapendium-aliases:
   docker-auth: &docker-auth
     plugins:
-      - tapendium/1password-secrets#v1.1.0:
+      - tapendium/1password-secrets#v2.0.0:
           env:
-            BUILDKITE_PLUGIN_DOCKER_LOGIN_USERNAME:
-              secret-uuid: zisch5odkndtzeb6pqupfazww4
-              field: username
-            DOCKER_LOGIN_PASSWORD:
-              secret-uuid: zisch5odkndtzeb6pqupfazww4
-              field: credential
+            BUILDKITE_PLUGIN_DOCKER_LOGIN_USERNAME: op://Automation Secrets/Docker Hub/username
+            DOCKER_LOGIN_PASSWORD: op://Automation Secrets/Docker Hub/credential
       - docker-login#v2.1.0
 
 steps:
