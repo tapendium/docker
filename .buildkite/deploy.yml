@@ -3,6 +3,7 @@ tapendium-aliases:
     plugins:
       - tapendium/1password-secrets#v2.0.0:
           env:
+            # yamllint disable-line rule:line-length
             BUILDKITE_PLUGIN_DOCKER_LOGIN_USERNAME: op://Automation Secrets/Docker Hub/username
             DOCKER_LOGIN_PASSWORD: op://Automation Secrets/Docker Hub/credential
       - docker-login#v2.1.0
