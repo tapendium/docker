@@ -1,0 +1,40 @@
+version: 2
+updates:
+  - package-ecosystem: 'docker'
+    directory: '/cfn-lint'
+    schedule:
+      interval: 'daily'
+      time: '07:00'
+      timezone: 'Australia/Melbourne'
+    labels:
+      - dependencies
+      # Prevents `pr_branch_updater` workflow from updating
+      # PR branches created by dependabot. Label name must match
+      # the SKIP_UPDATE_LABEL environment
+      - skipupdate
+
+  - package-ecosystem: 'docker'
+    directory: '/node-awscli-jq'
+    schedule:
+      interval: 'daily'
+      time: '07:00'
+      timezone: 'Australia/Melbourne'
+    labels:
+      - dependencies
+      # Prevents `pr_branch_updater` workflow from updating
+      # PR branches created by dependabot. Label name must match
+      # the SKIP_UPDATE_LABEL environment
+      - skipupdate
+
+  - package-ecosystem: 'docker'
+    directory: '/node18-awscli-jq'
+    schedule:
+      interval: 'daily'
+      time: '07:00'
+      timezone: 'Australia/Melbourne'
+    labels:
+      - dependencies
+      # Prevents `pr_branch_updater` workflow from updating
+      # PR branches created by dependabot. Label name must match
+      # the SKIP_UPDATE_LABEL environment
+      - skipupdate
