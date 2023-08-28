@@ -19,4 +19,9 @@ RUN apt-get update && \
     apt-get install --assume-yes --no-install-recommends jq && \
     rm -rf /var/lib/apt/lists/*
 
+# dnsutils
+RUN apt-get update && \
+    apt-get install --assume-yes --no-install-recommends dnsutils && \
+    rm -rf /var/lib/apt/lists/*
+
 ENTRYPOINT []
