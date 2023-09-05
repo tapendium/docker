@@ -24,4 +24,9 @@ RUN apt-get update && \
     apt-get install --assume-yes --no-install-recommends dnsutils && \
     rm -rf /var/lib/apt/lists/*
 
+# gettext
+RUN apt-get update && \
+    apt-get install --assume-yes --no-install-recommends gettext-base && \
+    rm -rf /var/lib/apt/lists/*
+
 ENTRYPOINT []
