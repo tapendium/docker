@@ -9,7 +9,7 @@ commandTests:
   - name: "node version"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v18.13.0"]
+    expectedOutput: ["v18.18.0"]
 
   - name: "aws-cli installation"
     command: "which"
