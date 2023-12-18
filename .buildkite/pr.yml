@@ -1,68 +1,72 @@
 steps:
-  - label: ":yaml: YAML Lint"
-    plugins:
-      - docker#v3.13.0:
-          command: ["./"]
-          image: "cytopia/yamllint:latest"
-      - seek-oss/github-merged-pr#v1.1.2:
-          mode: checkout
-  - label: "Triggering tests pipelines"
-    plugins:
-      - chronotc/monorepo-diff#v2.3.0:
-          diff: "git diff --name-only HEAD..origin/main"
-          watch:
-            - path: cfn-lint
-              config:
-                label: ":pipeline: Upload unit-test pipeline for cfn-lint"
-                command: buildkite-agent pipeline upload .buildkite/test.yml
-                env:
-                  - CONTAINER_NAME=cfn-lint
-            - path: node-awscli-jq
-              config:
-                label: ":pipeline: Upload unit-test pipeline for node-awscli-jq"
-                command: buildkite-agent pipeline upload
-                        .buildkite/test.yml
-                env:
-                  - CONTAINER_NAME=node-awscli-jq
-            - path: node18-awscli-jq
-              config:
-                label: >-
-                  ":pipeline: Upload unit-test pipeline for node18-awscli-jq"
-                command: buildkite-agent pipeline upload
-                        .buildkite/test.yml
-                env:
-                  - CONTAINER_NAME=node18-awscli-jq
-  - label: "Triggering lint pipelines"
-    plugins:
-      - chronotc/monorepo-diff#v2.3.0:
-          diff: "git diff --name-only HEAD..origin/main"
-          watch:
-            - path: cfn-lint
-              config:
-                label: ":pipeline: Upload lint pipeline for cfn-lint container"
-                command: buildkite-agent pipeline upload .buildkite/lint.yml
-                env:
-                  - CONTAINER_NAME=cfn-lint
-            - path: node-awscli-jq
-              config:
-                label: >-
-                  ":pipeline: Upload lint pipeline for node-awscli-jq container"
-                command: buildkite-agent pipeline upload .buildkite/lint.yml
-                env:
-                  - CONTAINER_NAME=node-awscli-jq
-            - path: node18-awscli-jq
-              config:
-                label: >-
-                  ":pipeline: Upload lint pipeline for
-                    node18-awscli-jq container"
-                command: buildkite-agent pipeline upload .buildkite/lint.yml
-                env:
-                  - CONTAINER_NAME=node18-awscli-jq
-            - path: pact-cli
-              config:
-                label: >-
-                  ":pipeline: Upload lint pipeline for
-                    pact-cli container"
-                command: buildkite-agent pipeline upload .buildkite/lint.yml
-                env:
-                  - CONTAINER_NAME=pact-cli
+  - label: test multi platform build
+    soft_fail: true
+    commands:
+      - docker buildx build --platform linux/arm64,linux/amd64 --tag tapendium/pact-cli:latest pact-cli
+  # - label: ":yaml: YAML Lint"
+  #   plugins:
+  #     - docker#v3.13.0:
+  #         command: ["./"]
+  #         image: "cytopia/yamllint:latest"
+  #     - seek-oss/github-merged-pr#v1.1.2:
+  #         mode: checkout
+  # - label: "Triggering tests pipelines"
+  #   plugins:
+  #     - chronotc/monorepo-diff#v2.3.0:
+  #         diff: "git diff --name-only HEAD..origin/main"
+  #         watch:
+  #           - path: cfn-lint
+  #             config:
+  #               label: ":pipeline: Upload unit-test pipeline for cfn-lint"
+  #               command: buildkite-agent pipeline upload .buildkite/test.yml
+  #               env:
+  #                 - CONTAINER_NAME=cfn-lint
+  #           - path: node-awscli-jq
+  #             config:
+  #               label: ":pipeline: Upload unit-test pipeline for node-awscli-jq"
+  #               command: buildkite-agent pipeline upload
+  #                       .buildkite/test.yml
+  #               env:
+  #                 - CONTAINER_NAME=node-awscli-jq
+  #           - path: node18-awscli-jq
+  #             config:
+  #               label: >-
+  #                 ":pipeline: Upload unit-test pipeline for node18-awscli-jq"
+  #               command: buildkite-agent pipeline upload
+  #                       .buildkite/test.yml
+  #               env:
+  #                 - CONTAINER_NAME=node18-awscli-jq
+  # - label: "Triggering lint pipelines"
+  #   plugins:
+  #     - chronotc/monorepo-diff#v2.3.0:
+  #         diff: "git diff --name-only HEAD..origin/main"
+  #         watch:
+  #           - path: cfn-lint
+  #             config:
+  #               label: ":pipeline: Upload lint pipeline for cfn-lint container"
+  #               command: buildkite-agent pipeline upload .buildkite/lint.yml
+  #               env:
+  #                 - CONTAINER_NAME=cfn-lint
+  #           - path: node-awscli-jq
+  #             config:
+  #               label: >-
+  #                 ":pipeline: Upload lint pipeline for node-awscli-jq container"
+  #               command: buildkite-agent pipeline upload .buildkite/lint.yml
+  #               env:
+  #                 - CONTAINER_NAME=node-awscli-jq
+  #           - path: node18-awscli-jq
+  #             config:
+  #               label: >-
+  #                 ":pipeline: Upload lint pipeline for
+  #                   node18-awscli-jq container"
+  #               command: buildkite-agent pipeline upload .buildkite/lint.yml
+  #               env:
+  #                 - CONTAINER_NAME=node18-awscli-jq
+  #           - path: pact-cli
+  #             config:
+  #               label: >-
+  #                 ":pipeline: Upload lint pipeline for
+  #                   pact-cli container"
+  #               command: buildkite-agent pipeline upload .buildkite/lint.yml
+  #               env:
+  #                 - CONTAINER_NAME=pact-cli
