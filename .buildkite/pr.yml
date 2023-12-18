@@ -3,8 +3,9 @@ steps:
     soft_fail: true
     commands:
       - docker buildx create --name multiplatform --use
-      - docker buildx build --platform linux/arm64,linux/amd64 --tag tapendium/pact-cli:latest --load pact-cli
+      - docker buildx build --platform linux/arm64,linux/amd64 --tag tapendium/pact-cli:latest --output type=docker,dest=./pact-cli.tar pact-cli
       - docker image ls
+      - ls -lah
   # - label: ":yaml: YAML Lint"
   #   plugins:
   #     - docker#v3.13.0:
