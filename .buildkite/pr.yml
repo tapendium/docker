@@ -58,3 +58,11 @@ steps:
                 command: buildkite-agent pipeline upload .buildkite/lint.yml
                 env:
                   - CONTAINER_NAME=node18-awscli-jq
+            - path: pact-cli
+              config:
+                label: >-
+                  ":pipeline: Upload lint pipeline for
+                    pact-cli container"
+                command: buildkite-agent pipeline upload .buildkite/lint.yml
+                env:
+                  - CONTAINER_NAME=pact-cli
