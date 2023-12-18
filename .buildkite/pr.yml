@@ -2,6 +2,7 @@ steps:
   - label: test multi platform build
     soft_fail: true
     commands:
+      - docker buildx create --name multiplatform --use
       - docker buildx build --platform linux/arm64,linux/amd64 --tag tapendium/pact-cli:latest pact-cli
   # - label: ":yaml: YAML Lint"
   #   plugins:
