@@ -8,9 +8,16 @@ tapendium-aliases:
             DOCKER_LOGIN_PASSWORD: op://Automation Secrets/Docker Hub/credential
       - docker-login#v2.1.0
 
+  # Only use multi-platform step for tags matching
+  # the following. To add a new image name use the
+  # || operator with the new tag name
+  ismultiplatform: &ismultiplatform (build.tag =~ /^pact-cli\//)
+  isnotmultiplatform: &isnotmultiplatform (build.tag !~ /^pact-cli\//)
+
 steps:
   - label: ":package: Build image"
     key: build
+    if: *isnotmultiplatform
     command:
       - "docker build -t ${CONTAINER_NAME}:{{matrix}}
         --build-arg TARGETPLATFORM={{matrix}}
@@ -22,6 +29,7 @@ steps:
   - label: ":docker: Publish to docker hub"
     key: publish
     depends_on: build
+    if: *isnotmultiplatform
     command:
       - "docker tag ${CONTAINER_NAME}:{{matrix}}
         tapendium/${CONTAINER_NAME}:{{matrix}}"
@@ -32,6 +40,7 @@ steps:
 
   - label: ":docker::scroll: Create manifest"
     depends_on: publish
+    if: *isnotmultiplatform
     command:
       - "docker manifest create
           tapendium/${IMAGE_TAG_NAME}
@@ -40,3 +49,16 @@ steps:
     env:
       ARM: arm64
     <<: *docker-auth
+
+  - label: ':docker: Build and publish image'
+    <<: *docker-auth
+    if: *ismultiplatform
+    commands:
+      - docker buildx create --name multiplatform --use
+      - >-
+        docker buildx build
+        --platform linux/arm64,linux/amd64
+        --tag tapendium/${IMAGE_TAG_NAME}
+        --tag tapendium/${CONTAINER_NAME}:latest
+        --push
+        ./${CONTAINER_NAME}
