@@ -17,8 +17,7 @@ commandTests:
   - name: "cfn-lint run on json file"
     setup:
       [
-        ["touch", "/tmp/Output.json"],
-        ["echo", '{"Resources"; {} }', ">>", "/tmp/Output.json"],
+        ["cp", './cfn-lint/output.json', "/tmp/Output.json"]
       ]
     command: "cfn-lint"
     args: ["-t", "/tmp/Output.json"]
