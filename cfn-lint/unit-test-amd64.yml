@@ -16,7 +16,10 @@ commandTests:
   # check the cfn-lint run on a file
   - name: "cfn-lint run on json file"
     setup:
-      [["touch", "/tmp/Output.json"], ["echo", "{}", ">>", "/tmp/Output.json"]]
+      [
+        ["touch", "/tmp/Output.json"],
+        ["echo", '{"Resources"; {} }', ">>", "/tmp/Output.json"],
+      ]
     command: "cfn-lint"
     args: ["-t", "/tmp/Output.json"]
     expectedOutput: [""]
