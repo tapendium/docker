@@ -13,6 +13,22 @@ commandTests:
     args: ["-v"]
     expectedOutput: [".*1.*"]
 
+  # check the cfn file exist
+  - name: "cfn-lint check file exist"
+    # yamllint disable rule:line-length
+    setup:
+      [
+        ["echo", "outputing file"],
+        ["touch", "/tmp/Output.json"],
+        ["echo", '{"Resources":{"ApiGWLoggingRole":{"Type":"AWS::IAM::Role","Properties":{"RoleName":"apigw-logs-role","Description":"Api Gateway logging iam role","AssumeRolePolicyDocument":{"Statement":[{"Effect":"Allow","Principal":{"Service":"apigateway.amazonaws.com"},"Action":"sts:AssumeRole"}]},"ManagedPolicyArns":["arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"]}},"ApiGWAccount":{"Type":"AWS::ApiGateway::Account","Properties":{"CloudWatchRoleArn":{"Fn::GetAtt":["ApiGWLoggingRole","Arn"]}}}}}', ">", "/tmp/Output.json"],
+        ["echo", "checking file"],
+        ["cat", "/tmp/Output.json"]
+      ]
+    # yamllint enable rule:line-length
+    command: "cat"
+    args: ["/tmp/Output.json"]
+    expectedOutput: [""]
+
   # check the cfn-lint run on a file
   - name: "cfn-lint run on json file"
     # yamllint disable rule:line-length
