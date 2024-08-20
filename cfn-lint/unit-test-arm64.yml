@@ -11,7 +11,7 @@ commandTests:
   - name: "cfn-lint version"
     command: "cfn-lint"
     args: ["-v"]
-    expectedOutput: [".*0.8.*"]
+    expectedOutput: [".*1.*"]
 
   # check the cfn-lint run on a file
   - name: "cfn-lint run on json file"
