@@ -17,7 +17,7 @@ commandTests:
   - name: "cfn-lint run on json file"
     # yamllint disable rule:line-length
     setup:
-      [["touch", "/tmp/Output.json"], ["echo", '{"Resources":{"ApiGWLoggingRole":{"Type":"AWS::IAM::Role","Properties":{"RoleName":"apigw-logs-role","Description":"Api Gateway logging iam role","AssumeRolePolicyDocument":{"Statement":[{"Effect":"Allow","Principal":{"Service":"apigateway.amazonaws.com"},"Action":"sts:AssumeRole"}]},"ManagedPolicyArns":["arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"]}},"ApiGWAccount":{"Type":"AWS::ApiGateway::Account","Properties":{"CloudWatchRoleArn":{"Fn::GetAtt":["ApiGWLoggingRole","Arn"]}}}}}', ">>", "/tmp/Output.json"]]
+      [["touch", "/tmp/Output.json"], ["echo", '{"Resources":{"ApiGWLoggingRole":{"Type":"AWS::IAM::Role","Properties":{"RoleName":"apigw-logs-role","Description":"Api Gateway logging iam role","AssumeRolePolicyDocument":{"Statement":[{"Effect":"Allow","Principal":{"Service":"apigateway.amazonaws.com"},"Action":"sts:AssumeRole"}]},"ManagedPolicyArns":["arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"]}},"ApiGWAccount":{"Type":"AWS::ApiGateway::Account","Properties":{"CloudWatchRoleArn":{"Fn::GetAtt":["ApiGWLoggingRole","Arn"]}}}}}', ">>", "/tmp/Output.json"], ["cat", "/tmp/Output.json"]]
     # yamllint enable rule:line-length
     command: "cfn-lint"
     args: ["-t", "/tmp/Output.json"]
