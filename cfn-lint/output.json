@@ -1,5 +1,5 @@
 {
-"Resources": {
+  "Resources": {
     "ApiGWLoggingRole": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -25,12 +25,10 @@
       "Type": "AWS::ApiGateway::Account",
       "Properties": {
         "CloudWatchRoleArn": {
-          "Fn::GetAtt": [
-            "ApiGWLoggingRole",
-            "Arn"
-          ]
+          "Fn::GetAtt": ["ApiGWLoggingRole", "Arn"]
         }
       }
     }
   }
 }
+
