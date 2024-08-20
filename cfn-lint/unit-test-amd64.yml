@@ -18,11 +18,11 @@ commandTests:
     # yamllint disable rule:line-length
     setup:
       [
-        ['echo "{\"Resources\":{}}" > /tmp/Output.json'],
+        ['echo "{\"Resources\":{}}" > /Output.json'],
       ]
     # yamllint enable rule:line-length
     command: "cat"
-    args: ["/tmp/Output.json"]
+    args: ["/Output.json"]
     expectedOutput: [""]
 
   # check the cfn-lint run on a file
