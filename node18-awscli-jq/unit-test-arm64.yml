@@ -21,6 +21,16 @@ commandTests:
     args: ["jq"]
     expectedOutput: ["/usr/bin/jq"]
 
+  - name: "dnsutils installation"
+    command: "which"
+    args: ["dig"]
+    expectedOutput: ["/usr/bin/dig"]
+
+  - name: "envsubst installation"
+    command: "which"
+    args: ["envsubst"]
+    expectedOutput: ["/usr/bin/envsubst"]
+
   # check that image builds for the right architecture
   - name: "architecture check"
     command: "uname"
