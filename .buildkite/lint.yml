@@ -2,7 +2,7 @@ steps:
   - label: "lint Dockerfile pipeline"
     plugins:
       - docker#v3.13.0:
-          image: hadolint/hadolint
+          image: hadolint/hadolint:v2.12.0-debian
           propagate-environment: true
           command:
             - hadolint
