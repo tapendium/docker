@@ -1,6 +1,6 @@
-FROM python:alpine
+FROM python:3.13-alpine
 
-ARG lint_version=v1.38.0
+ARG lint_version=v1.42.1
 
 RUN pip install --no-cache-dir cfn-lint==${lint_version}
 
