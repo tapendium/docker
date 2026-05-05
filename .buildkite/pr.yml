@@ -32,6 +32,14 @@ steps:
                         .buildkite/test.yml
                 env:
                   - CONTAINER_NAME=node18-awscli-jq
+            - path: node-lts-awscli-jq
+              config:
+                label: >-
+                  ":pipeline: Upload unit-test pipeline for node-lts-awscli-jq"
+                command: buildkite-agent pipeline upload
+                        .buildkite/test.yml
+                env:
+                  - CONTAINER_NAME=node-lts-awscli-jq
   - label: "Triggering lint pipelines"
     plugins:
       - chronotc/monorepo-diff#v2.3.0:
@@ -58,6 +66,14 @@ steps:
                 command: buildkite-agent pipeline upload .buildkite/lint.yml
                 env:
                   - CONTAINER_NAME=node18-awscli-jq
+            - path: node-lts-awscli-jq
+              config:
+                label: >-
+                  ":pipeline: Upload lint pipeline for
+                    node-lts-awscli-jq container"
+                command: buildkite-agent pipeline upload .buildkite/lint.yml
+                env:
+                  - CONTAINER_NAME=node-lts-awscli-jq
             - path: pact-cli
               config:
                 label: >-
