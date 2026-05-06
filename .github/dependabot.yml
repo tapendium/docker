@@ -41,13 +41,6 @@ updates:
       # PR branches created by dependabot. Label name must match
       # the SKIP_UPDATE_LABEL environment
       - skipupdate
-    cooldown:
-      default-days: 7
-      semver-major-days: 14
-      semver-minor-days: 7
-      semver-patch-days: 3
-      exclude:
-        - '@tapendium/*'
 
   - package-ecosystem: 'docker'
     directory: '/node18-awscli-jq'
